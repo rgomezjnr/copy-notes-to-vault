@@ -8,6 +8,10 @@
   padding: 1.2rem 1.5rem;
 }
 
+.copy-notes-modal button {
+  font-weight: bold;
+}
+
 /* ── Top controls ────────────────────────────────────────────── */
 .copy-notes-controls {
   display: flex;
