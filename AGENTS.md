@@ -46,11 +46,13 @@ npm run lint
 
 ```
 src/
-  main.ts       # Plugin entry point, lifecycle (onload/onunload), command & ribbon registration
-  settings.ts   # CopyNotesSettings interface, DEFAULT_SETTINGS, CopyNotesSettingTab
-  modal.ts      # CopyNotesModal — the main copy GUI
-  utils.ts      # Pure helpers: vault path resolution, fs utilities, attachment parsing
-styles.css      # Modal and UI styles
+  main.ts           # Plugin entry point, lifecycle (onload/onunload), command & ribbon registration
+  settings.ts       # CopyNotesSettings interface, DEFAULT_SETTINGS, CopyNotesSettingTab
+  ui/
+    modal.ts        # CopyNotesModal — the main copy GUI
+  utils/
+    utils.ts        # Pure helpers: vault path resolution, fs utilities, attachment parsing
+styles.css          # Modal and UI styles
 ```
 
 ## Source module responsibilities
@@ -59,8 +61,8 @@ styles.css      # Modal and UI styles
 |---|---|
 | `src/main.ts` | Plugin class, settings load/save, addCommand, addRibbonIcon, addSettingTab |
 | `src/settings.ts` | `CopyNotesSettings` interface, `DEFAULT_SETTINGS`, `CopyNotesSettingTab` class |
-| `src/modal.ts` | `CopyNotesModal` — file-tree UI, destination picker, copy orchestration |
-| `src/utils.ts` | `getVaultBasePath`, `ensureDirSync`, `getAttachmentPaths` |
+| `src/ui/modal.ts` | `CopyNotesModal` — file-tree UI, destination picker, copy orchestration |
+| `src/utils/utils.ts` | `getVaultBasePath`, `ensureDirSync`, `getAttachmentPaths` |
 
 ## Manifest rules (`manifest.json`)
 
@@ -111,7 +113,7 @@ A test vault is provided at `test/vault1/` for convenience.
 ## Agent do/don't
 
 **Do**
-- Keep the file-tree rendering in `src/modal.ts`.
+- Keep the file-tree rendering in `src/ui/modal.ts`.
 - Use Obsidian's metadata cache for link/embed resolution (never raw regex on note content).
 - Pass the plugin instance by reference; do not duplicate settings state.
 - Use `this.registerEvent` / `this.registerDomEvent` for any event listeners added in `onload`.

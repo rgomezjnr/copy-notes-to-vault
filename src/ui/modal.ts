@@ -8,8 +8,8 @@ import {
 } from "obsidian";
 import * as fs from "fs";
 import * as path from "path";
-import type CopyNotesPlugin from "./main";
-import { getVaultBasePath, ensureDirSync, getAttachmentPaths } from "./utils";
+import type CopyNotesPlugin from "../main";
+import { getVaultBasePath, ensureDirSync, getAttachmentPaths } from "../utils/utils";
 
 export class CopyNotesModal extends Modal {
 	plugin: CopyNotesPlugin;

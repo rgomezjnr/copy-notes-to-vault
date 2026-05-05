@@ -1,6 +1,6 @@
 import { Plugin } from "obsidian";
 import { CopyNotesSettings, DEFAULT_SETTINGS, CopyNotesSettingTab } from "./settings";
-import { CopyNotesModal } from "./modal";
+import { CopyNotesModal } from "./ui/modal";
 
 export default class CopyNotesPlugin extends Plugin {
 	settings!: CopyNotesSettings;
