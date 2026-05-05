@@ -8,7 +8,7 @@ export default class CopyNotesPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		this.addRibbonIcon("copy", "Copy Notes to Another Vault", () => {
+		this.addRibbonIcon("copy", "Copy notes to another vault", () => {
 			new CopyNotesModal(this.app, this).open();
 		});
 

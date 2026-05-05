@@ -34,10 +34,9 @@ export class CopyNotesModal extends Modal {
 
 	onOpen() {
 		this.modalEl.addClass("copy-notes-modal");
+		this.titleEl.setText("Copy notes to another vault");
 		const { contentEl } = this;
 		contentEl.empty();
-
-		contentEl.createEl("h2", { text: "Copy Notes to Another Vault" });
 
 		// ── Top controls ──────────────────────────────────────────────────
 		const controls = contentEl.createDiv("copy-notes-controls");
@@ -88,7 +87,7 @@ export class CopyNotesModal extends Modal {
 
 		// ── Destination vault ─────────────────────────────────────────────
 		const destSection = contentEl.createDiv("copy-notes-dest");
-		destSection.createEl("h3", { text: "Destination vault" });
+		new Setting(destSection).setName("Destination vault").setHeading();
 
 		const destRow = destSection.createDiv("copy-notes-dest-row");
 		const destInput = destRow.createEl("input", {
@@ -137,7 +136,7 @@ export class CopyNotesModal extends Modal {
 
 		if (!isRoot) {
 			const folderRow = container.createDiv({ cls: "copy-notes-folder-row" });
-			folderRow.style.paddingLeft = `${depth * 16}px`;
+			folderRow.style.setProperty("--depth", String(depth));
 
 			const arrow = folderRow.createSpan({ cls: "copy-notes-arrow", text: "▶" });
 			folderRow.createSpan({ cls: "copy-notes-folder-icon", text: "📁" });
@@ -179,7 +178,7 @@ export class CopyNotesModal extends Modal {
 
 	private renderFileRow(file: TFile, container: HTMLElement, depth: number) {
 		const row = container.createDiv({ cls: "copy-notes-file-row" });
-		row.style.paddingLeft = `${depth * 16}px`;
+		row.style.setProperty("--depth", String(depth));
 
 		const checkbox = row.createEl("input", { type: "checkbox" });
 		checkbox.checked = this.selectedPaths.has(file.path);
@@ -227,7 +226,7 @@ export class CopyNotesModal extends Modal {
 			const { remote } = require("electron") as any;
 			const result = await remote.dialog.showOpenDialog({
 				properties: ["openDirectory"],
-				title: "Select Destination Vault Folder",
+				title: "Select destination vault folder",
 			}) as { canceled: boolean; filePaths: string[] };
 			const chosen = result.filePaths[0];
 			if (!result.canceled && chosen !== undefined) {

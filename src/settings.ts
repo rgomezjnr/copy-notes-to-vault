@@ -24,7 +24,6 @@ export class CopyNotesSettingTab extends PluginSettingTab {
 	display() {
 		const { containerEl } = this;
 		containerEl.empty();
-		containerEl.createEl("h2", { text: "Copy Notes to Vault" });
 
 		new Setting(containerEl)
 			.setName("Default destination vault")
