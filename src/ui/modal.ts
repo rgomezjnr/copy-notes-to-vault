@@ -20,7 +20,7 @@ export class CopyNotesModal extends Modal {
 	private searchQuery = "";
 
 	private progressEl!: HTMLElement;
-	private copyBtn!: HTMLButtonElement;
+	private copyBtn?: HTMLButtonElement;
 	private fileListEl!: HTMLElement;
 	private selectedCountEl!: HTMLElement;
 
@@ -98,6 +98,7 @@ export class CopyNotesModal extends Modal {
 		});
 		destInput.addEventListener("input", () => {
 			this.destinationVault = destInput.value.trim();
+			this.updateCopyBtnState();
 		});
 
 		const browseBtn = destRow.createEl("button", { text: "Browse…" });
@@ -106,6 +107,7 @@ export class CopyNotesModal extends Modal {
 			if (chosen) {
 				this.destinationVault = chosen;
 				destInput.value = chosen;
+				this.updateCopyBtnState();
 			}
 		});
 
@@ -118,6 +120,7 @@ export class CopyNotesModal extends Modal {
 			cls: "mod-cta copy-notes-copy-btn",
 		});
 		this.copyBtn.addEventListener("click", () => this.runCopy());
+		this.updateCopyBtnState();
 	}
 
 	onClose() {
@@ -216,6 +219,12 @@ export class CopyNotesModal extends Modal {
 
 	private updateSelectedCount() {
 		this.selectedCountEl.textContent = `${this.selectedPaths.size} note${this.selectedPaths.size !== 1 ? "s" : ""} selected`;
+		this.updateCopyBtnState();
+	}
+
+	private updateCopyBtnState() {
+		if (this.copyBtn === undefined) return;
+		this.copyBtn.disabled = this.selectedPaths.size === 0 || this.destinationVault.trim().length === 0;
 	}
 
 	// ── Folder picker ─────────────────────────────────────────────────────
@@ -245,6 +254,7 @@ export class CopyNotesModal extends Modal {
 	}
 
 	private async runCopy() {
+		if (this.copyBtn === undefined) return;
 		if (this.selectedPaths.size === 0) {
 			new Notice("No notes selected.");
 			return;
@@ -303,8 +313,8 @@ export class CopyNotesModal extends Modal {
 			this.setProgress(`Copying… ${done} / ${total}`);
 		}
 
-		this.copyBtn.disabled = false;
 		this.copyBtn.textContent = "Copy notes";
+		this.updateCopyBtnState();
 
 		if (errors === 0) {
 			this.setProgress(`✓ Done — ${done} file${done !== 1 ? "s" : ""} copied.`);
