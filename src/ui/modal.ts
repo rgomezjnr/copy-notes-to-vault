@@ -14,6 +14,7 @@ import { getVaultBasePath, ensureDirSync, getAttachmentPaths } from "../utils/ut
 export class CopyNotesModal extends Modal {
 	plugin: CopyNotesPlugin;
 	private selectedPaths = new Set<string>();
+	private expandedFolders = new Set<string>();
 	private destinationVault: string;
 	private includeAttachments: boolean;
 	private preserveFolderStructure: boolean;
@@ -146,12 +147,19 @@ export class CopyNotesModal extends Modal {
 			folderRow.createSpan({ cls: "copy-notes-folder-name", text: folder.name });
 
 			const childContainer = container.createDiv({ cls: "copy-notes-folder-children" });
-			childContainer.style.display = "none";
+			const isExpanded = this.expandedFolders.has(folder.path);
+			childContainer.style.display = isExpanded ? "block" : "none";
+			arrow.textContent = isExpanded ? "▼" : "▶";
 
 			arrow.addEventListener("click", () => {
 				const collapsed = childContainer.style.display === "none";
 				childContainer.style.display = collapsed ? "block" : "none";
 				arrow.textContent = collapsed ? "▼" : "▶";
+				if (collapsed) {
+					this.expandedFolders.add(folder.path);
+				} else {
+					this.expandedFolders.delete(folder.path);
+				}
 			});
 
 			this.renderFolderContents(folder, childContainer, depth + 1);
@@ -213,8 +221,20 @@ export class CopyNotesModal extends Modal {
 				this.selectedPaths.delete(file.path);
 			}
 		}
+		if (select) {
+			this.expandFolderTree(this.app.vault.getRoot());
+		}
 		this.updateSelectedCount();
 		this.renderFileList();
+	}
+
+	private expandFolderTree(folder: TFolder) {
+		for (const child of folder.children) {
+			if (child instanceof TFolder) {
+				this.expandedFolders.add(child.path);
+				this.expandFolderTree(child);
+			}
+		}
 	}
 
 	private updateSelectedCount() {
