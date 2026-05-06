@@ -63,6 +63,28 @@ npm run build
 
 Copy `main.js`, `manifest.json`, and `styles.css` into your test vault's plugin folder to load the plugin.
 
+## Support
+
+If you find an issue or have any feedback please submit an issue on [GitHub](https://github.com/rgomezjnr/copy-notes-to-vault/issues).
+
+You can also DM me via Twitter/X: [@rgomezjnr](https://x.com/rgomezjnr).
+
+If you would like to show your support donations are greatly appreciated via:
+
+- [GitHub Sponsors](https://github.com/sponsors/rgomezjnr)
+- [PayPal](https://paypal.me/rgomezjnr)
+- [Venmo](https://account.venmo.com/u/rgomezjnr)
+- [Strike](https://strike.me/rgomezjnr)
+- Bitcoin: bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
+
+## Author
+
+[Robert Gomez, Jr.](https://github.com/rgomezjnr)
+
+## Source code
+
+https://github.com/rgomezjnr/copy-notes-to-vault
+
 ## License
 
 [MIT](LICENSE) © 2026 Robert Gomez, Jr.

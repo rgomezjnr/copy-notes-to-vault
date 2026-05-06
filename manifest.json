@@ -6,5 +6,10 @@
   "description": "Copy notes and their attachments from one Obsidian vault to another",
   "author": "Robert Gomez, Jr.",
   "authorUrl": "https://github.com/rgomezjnr",
+  "fundingUrl": {
+        "PayPal": "https://paypal.me/rgomezjnr",
+        "Venmo": "https://account.venmo.com/u/rgomezjnr",
+        "Strike": "https://strike.me/rgomezjnr"
+  },
   "isDesktopOnly": true
 }
