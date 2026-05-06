@@ -2,6 +2,8 @@
 
 An [Obsidian](https://obsidian.md) plugin that lets you copy notes from your current vault to another vault, including all referenced attachments (images, PDFs, videos, and other embedded files).
 
+![Copy Notes to Vault demo animation](demo.gif)
+
 ## Features
 
 - Browse and select notes via a searchable, folder-tree GUI
