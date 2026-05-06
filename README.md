@@ -29,6 +29,8 @@ An [Obsidian](https://obsidian.md) plugin that lets you copy notes from your cur
 
 ## Usage
 
+>Before using the plugin you should backup your vaults!
+
 1. Click the **Copy** ribbon icon, or open the command palette and run **Copy notes to another vault**.
 2. In the dialog:
    - Use the search bar or expand folders to find and check the notes you want to copy.
