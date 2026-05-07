@@ -40,7 +40,7 @@ export class CopyNotesSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("Include attachments by default")
-			.setDesc("Also copy images, PDFs, videos, and other files referenced in selected notes.")
+			.setDesc("Also copy images, pdfs, videos, and other files referenced in selected notes.")
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.includeAttachments)

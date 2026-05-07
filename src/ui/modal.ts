@@ -70,7 +70,7 @@ export class CopyNotesModal extends Modal {
 
 		new Setting(options)
 			.setName("Include attachments")
-			.setDesc("Also copy images, PDFs, videos, and other files referenced in the selected notes.")
+			.setDesc("Also copy images, pdfs, videos, and other files referenced in the selected notes.")
 			.addToggle((toggle) =>
 				toggle.setValue(this.includeAttachments).onChange((v) => {
 					this.includeAttachments = v;
@@ -103,13 +103,15 @@ export class CopyNotesModal extends Modal {
 		});
 
 		const browseBtn = destRow.createEl("button", { text: "Browse…" });
-		browseBtn.addEventListener("click", async () => {
-			const chosen = await this.pickFolder();
-			if (chosen) {
-				this.destinationVault = chosen;
-				destInput.value = chosen;
-				this.updateCopyBtnState();
-			}
+		browseBtn.addEventListener("click", () => {
+			void (async () => {
+				const chosen = await this.pickFolder();
+				if (chosen) {
+					this.destinationVault = chosen;
+					destInput.value = chosen;
+					this.updateCopyBtnState();
+				}
+			})();
 		});
 
 		// ── Footer ────────────────────────────────────────────────────────
@@ -120,7 +122,7 @@ export class CopyNotesModal extends Modal {
 			text: "Copy notes",
 			cls: "mod-cta copy-notes-copy-btn",
 		});
-		this.copyBtn.addEventListener("click", () => this.runCopy());
+		this.copyBtn.addEventListener("click", () => { void this.runCopy(); });
 		this.updateCopyBtnState();
 	}
 
@@ -251,12 +253,20 @@ export class CopyNotesModal extends Modal {
 
 	private async pickFolder(): Promise<string | null> {
 		try {
-			// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-explicit-any
-			const { remote } = require("electron") as any;
+			const { remote } = require("electron") as unknown as {
+				remote: {
+					dialog: {
+						showOpenDialog(options: {
+							properties: string[];
+							title: string;
+						}): Promise<{ canceled: boolean; filePaths: string[] }>;
+					};
+				};
+			};
 			const result = await remote.dialog.showOpenDialog({
 				properties: ["openDirectory"],
 				title: "Select destination vault folder",
-			}) as { canceled: boolean; filePaths: string[] };
+			});
 			const chosen = result.filePaths[0];
 			if (!result.canceled && chosen !== undefined) {
 				return chosen;
