@@ -1,6 +1,6 @@
 {
 	"name": "copy-notes-to-vault",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Copy notes and their attachments from one vault to another.",
 	"main": "main.js",
 	"type": "module",
