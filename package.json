@@ -1,7 +1,7 @@
 {
 	"name": "copy-notes-to-vault",
-	"version": "1.0.0",
-	"description": "Copy notes and their attachments from one Obsidian vault to another",
+	"version": "1.0.1",
+	"description": "Copy notes and their attachments from one vault to another.",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
