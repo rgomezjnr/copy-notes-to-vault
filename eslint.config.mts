@@ -22,6 +22,14 @@ export default tseslint.config(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		plugins: {
+			"@typescript-eslint": tseslint.plugin,
+		},
+		rules: {
+			"@typescript-eslint/no-require-imports": "error",
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",

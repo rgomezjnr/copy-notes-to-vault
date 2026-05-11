@@ -8,6 +8,7 @@ import {
 } from "obsidian";
 import * as fs from "fs";
 import * as path from "path";
+import { dialog } from "@electron/remote";
 import type CopyNotesPlugin from "../main";
 import { getVaultBasePath, ensureDirSync, getAttachmentPaths } from "../utils/utils";
 
@@ -253,17 +254,7 @@ export class CopyNotesModal extends Modal {
 
 	private async pickFolder(): Promise<string | null> {
 		try {
-			const { remote } = require("electron") as unknown as {
-				remote: {
-					dialog: {
-						showOpenDialog(options: {
-							properties: string[];
-							title: string;
-						}): Promise<{ canceled: boolean; filePaths: string[] }>;
-					};
-				};
-			};
-			const result = await remote.dialog.showOpenDialog({
+			const result = await dialog.showOpenDialog({
 				properties: ["openDirectory"],
 				title: "Select destination vault folder",
 			});
